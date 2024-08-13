@@ -20,16 +20,8 @@ jobs:
       run: |
         pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 
-    - name: Prepare service account credentials
-      run: |
-        echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > credentials.json
-        
-    - name: Verify credentials file
-      run: |
-        ls -l credentials.json
-        
-    - name: Upload to Google Drive
+    - name: Run script
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
       run: |
         python upload.py
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: credentials.json
