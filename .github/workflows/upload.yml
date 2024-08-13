@@ -1,0 +1,31 @@
+name: Upload File to Google Drive
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+
+    - name: Prepare service account credentials
+      run: |
+        echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > ${HOME}/credentials.json
+
+    - name: Upload to Google Drive
+      run: |
+        python upload.py
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${HOME}/credentials.json
