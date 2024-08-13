@@ -22,10 +22,14 @@ jobs:
 
     - name: Prepare service account credentials
       run: |
-        echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > ${HOME}/credentials.json
-
+        echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > credentials.json
+        
+    - name: Verify credentials file
+      run: |
+        ls -l credentials.json
+        
     - name: Upload to Google Drive
       run: |
         python upload.py
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${HOME}/credentials.json
+        GOOGLE_APPLICATION_CREDENTIALS: credentials.json
