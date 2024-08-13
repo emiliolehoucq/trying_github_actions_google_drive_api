@@ -2,12 +2,12 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 import os
-#import json
+import json
 from datetime import datetime
 
 # Load the service account info from the environment variable
-#service_account_info = json.loads(os.getenv('GOOGLE_APPLICATION_CREDENTIALS'))
-credentials = service_account.Credentials.from_service_account_info(os.getenv('GOOGLE_APPLICATION_CREDENTIALS'))
+service_account_info = json.loads(os.getenv('GOOGLE_APPLICATION_CREDENTIALS'))
+credentials = service_account.Credentials.from_service_account_info(service_account_info)
 service = build('drive', 'v3', credentials=credentials)
 
 folder_id = '13LooTAmZJCjtcxiOjJtWqo68NUQS4BD9' # https://drive.google.com/drive/u/0/folders/13LooTAmZJCjtcxiOjJtWqo68NUQS4BD9
